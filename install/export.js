@@ -4,7 +4,7 @@
 // 匯出 Feature Team Harness 安裝套件（不含 output/、各專案 memory 與評估等使用者資料）。
 // 用法：node export.js [--dest <目錄>] [--force]
 //   --dest   預設為 ~/Downloads/feature-team-harness
-//   --force  目的目錄已存在時，先刪除再匯出
+//   --force  目的目錄已存在時，先刪除再匯出（僅限空目錄或先前匯出的套件）
 
 const fs = require('fs');
 const os = require('os');
@@ -32,6 +32,16 @@ lib.run(() => {
   }
   if (fs.existsSync(dest)) {
     if (!flags.has('force')) throw new Error(`目的目錄已存在：${dest}（加 --force 覆蓋）`);
+    // 已安裝的 Harness 目錄也有 AGENTS.md 與 install/lib.js，因此還要確認沒有套件以外的檔案（使用者資料）
+    const isPreviousExport = fs.existsSync(path.join(dest, 'AGENTS.md')) && fs.existsSync(path.join(dest, 'install', 'lib.js'));
+    const packageFiles = lib.listPackageFiles(dest).map((file) => path.join(dest, file));
+    const otherFiles = fs.readdirSync(dest, { recursive: true })
+      .map((file) => path.join(dest, file))
+      .filter((file) => fs.statSync(file).isFile() && !packageFiles.includes(file));
+    const isEmpty = fs.readdirSync(dest).length === 0;
+    if (!isEmpty && (!isPreviousExport || otherFiles.length > 0)) {
+      throw new Error(`目的目錄不是先前匯出的套件，或含有套件以外的檔案，為避免誤刪不予覆蓋：${dest}`);
+    }
     fs.rmSync(dest, { recursive: true });
   }
 

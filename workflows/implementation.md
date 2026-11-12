@@ -28,7 +28,7 @@ Coordinator Read 回報並以 `git status`、`git diff --stat` 核對：
 | 結果 | 處理 |
 |---|---|
 | 全部符合 | 狀態改為 `PASSED`，進行下一個 Task |
-| 未達成但在範圍內可修正 | `REVISION_REQUIRED`，以 `SendMessage` 請同一個 Developer 修正 |
+| 未達成但在範圍內可修正 | `REVISION_REQUIRED`，以 `SendMessage` 請同一個 Developer 修正；同一 Task 至多修正 3 次，仍未達成則 `BLOCKED`，向使用者回報並詢問處理方式 |
 | 修改了計畫外檔案 | 告知使用者，詢問保留或還原；還原屬 git 寫入時依規範詢問 |
 | 需求或架構問題 | `BLOCKED`，進行影響分析；重大變更依關卡確認後回到 Phase 2 或 4 |
 | 回報需要 git 指令 | 依 `core/testing-and-git.md` 詢問使用者 |

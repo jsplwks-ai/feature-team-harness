@@ -11,11 +11,11 @@ Coordinator 整理審查範圍：基準 commit、計畫內修改檔案清單、�
 - **標準模式**：同一則訊息平行派遣三個新的 `feature-reviewer`（Reviewer A／B／C），提供相同材料。
 - **輕量模式**：只派遣 Reviewer A。
 
-Reviewer 唯讀，以回傳內容交付結果；Coordinator 寫入 `review/reviewer-{A,B,C}.md`。
+Reviewer 對專案唯讀，各自將結果寫入 `review/reviewer-{A,B,C}.md`，只回報檔案路徑與結論摘要。
 
 ## Step 6.3 第二輪交叉審核（標準模式）
 
-三者皆完成後，以 `SendMessage` 分別提供另外兩份結果的路徑，請其檢查漏報、誤判、缺乏證據並投票。Coordinator 將回傳內容追加至各自檔案。
+三者皆完成後，以 `SendMessage` 分別提供另外兩份結果的路徑，請其檢查漏報、誤判、缺乏證據並投票，各自寫入 `review/reviewer-{A,B,C}-cross.md`。
 
 ## Step 6.4 Coordinator 整合
 
@@ -25,6 +25,7 @@ Reviewer 唯讀，以回傳內容交付結果；Coordinator 寫入 `review/revie
 - 是否有缺乏證據的意見（要求補證，無法補證則不採用並記錄原因）。
 - 是否有少數意見提出尚未排除的重大風險。
 - 爭議無法解決時，要求 Reviewer 重新檢查；仍無法解決則交由使用者決策。
+- 補證與重新檢查的結果，由該 Reviewer 覆寫自己最新一輪的結果檔（保留原有內容）。
 
 ## Step 6.5 處理決策
 
@@ -39,8 +40,8 @@ Reviewer 唯讀，以回傳內容交付結果；Coordinator 寫入 `review/revie
 2. 依 `core/testing-and-git.md` 確認修正後的測試範圍。
 3. 派遣 Developer 修正（同 Task 可以 `SendMessage` 延續，否則新派遣並提供原 Task 回報）。
 4. Developer 回報修正內容。
-5. 依 `core/review-criteria.md`「修正後重新審查」決定重審者，以 `SendMessage` 請其審查受影響 Diff；結果寫入 `review/round-N/`。
-6. 重新整合，更新 `code-review.md`。重複至符合通過條件。
+5. 依 `core/review-criteria.md`「修正後重新審查」決定重審者，以 `SendMessage` 請其審查受影響 Diff；重審者將結果寫入 `review/round-N/reviewer-{X}.md`（N 為修正與重新審查的輪次，自 1 起算，與第一輪、交叉審核無關）。
+6. 重新整合，更新 `code-review.md`。重複至符合通過條件，修正與重新審查至多 3 輪（`round-1` 至 `round-3`）；`round-3` 後仍未通過時標記 `BLOCKED`，向使用者列出未解決問題並詢問處理方式（繼續修正或中止；風險接受仍依 `core/review-criteria.md`）。
 
 ## Step 6.7 最終通過條件
 

@@ -1,8 +1,8 @@
 # 程式碼審查
 
-> Reviewer 回傳使用「Reviewer 個別結果」段落；Coordinator 彙整檔案（`review/code-review.md`）使用「彙整」段落。
+> Reviewer 個別結果檔（`review/reviewer-{X}.md` 等）使用「Reviewer 個別結果」段落；Coordinator 彙整檔案（`review/code-review.md`）使用「彙整」段落。
 
-## Reviewer 個別結果（Reviewer {X}，第 {N} 輪）
+## Reviewer 個別結果（Reviewer {X}，第一輪／交叉審核／重新審查 round-{N}）
 
 ### 審查範圍
 

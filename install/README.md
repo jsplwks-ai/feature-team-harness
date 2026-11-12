@@ -22,7 +22,7 @@ node install/install.js --dry-run   # 預覽
 node install/install.js
 ```
 
-- 預設安裝到 `CLAUDE_CONFIG_DIR` 或 `~/.claude`，可用 `--target <目錄>` 指定。
+- 預設安裝到 `CLAUDE_CONFIG_DIR` 或 `~/.claude`，可用 `--target <目錄>` 指定。Skill 入口固定讀取 `~/.claude/harness/feature-team-harness/`，安裝到其他目錄時流程無法啟動。
 - 被覆蓋的既有檔案會先備份到 `~/.claude/backups/feature-team-harness/<時間>/`。
 - 不刪除任何檔案；`output/`、各專案 memory 與評估不受影響。
 - 安裝後重新啟動 Claude Code，再輸入 `/feature-team-harness` 啟動。

@@ -44,7 +44,8 @@ SESSION_DIR/
 │   └── T-01-report.md ...
 ├── review/
 │   ├── reviewer-A.md / reviewer-B.md / reviewer-C.md
-│   ├── round-N/ ...（重新審查）
+│   ├── reviewer-A-cross.md ...（第二輪交叉審核）
+│   ├── round-N/reviewer-A.md ...（修正後重新審查，N 自 1 起算）
 │   └── code-review.md
 └── final-report.md
 ```

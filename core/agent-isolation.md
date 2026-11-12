@@ -12,6 +12,7 @@
 - Subagent 之間無法直接溝通，交換意見、交叉審核及投票皆由 Coordinator 轉達。
 - 第二輪起，Coordinator 以 `SendMessage` 對同一個 Agent 繼續對話（保留其第一輪 Context），提供其他 Agent 第一輪結果的檔案路徑。
 - 轉達時不得刪減、改寫或摘要他方結論；直接提供原始檔案。
+- `SendMessage` 無法延續時（例如接續舊流程、Agent 已不存在），新派遣同角色同身分的 Agent，提供該 Agent 先前產出的檔案及原輸入材料，並於工作紀錄註明。
 
 ## 派遣訊息必備內容
 

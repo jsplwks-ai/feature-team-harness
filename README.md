@@ -35,7 +35,7 @@
 | Analyst | Subagent `feature-analyst` | 需求整理、規格草稿 |
 | Architect | Subagent `feature-architect` | 實作計畫、架構評審與投票（不改功能程式） |
 | Developer | Subagent `feature-developer` | 一次只做一個核准 Task，不做 Git 寫入 |
-| Reviewer | Subagent `feature-reviewer` | 唯讀審查 |
+| Reviewer | Subagent `feature-reviewer` | 審查（對專案唯讀，只寫入審查結果檔） |
 
 ### 評審模式
 
@@ -53,7 +53,7 @@ node install/install.js --dry-run   # 預覽要安裝的檔案
 node install/install.js             # 安裝或更新
 ```
 
-- 預設安裝到 `CLAUDE_CONFIG_DIR` 或 `~/.claude`，可用 `--target <目錄>` 指定。
+- 預設安裝到 `CLAUDE_CONFIG_DIR` 或 `~/.claude`，可用 `--target <目錄>` 指定。Skill 入口固定讀取 `~/.claude/harness/feature-team-harness/`，安裝到其他目錄時流程無法啟動。
 - Harness 本體安裝到 `~/.claude/harness/feature-team-harness/`；Skill 入口與 Subagent 定義安裝到 `~/.claude/skills/`、`~/.claude/agents/`。
 - 被覆蓋的既有檔案會先備份到 `~/.claude/backups/feature-team-harness/<時間>/`。
 - 安裝後須重新啟動 Claude Code。

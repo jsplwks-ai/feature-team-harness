@@ -24,7 +24,7 @@ Feature Team Harness 是由多個專業 Agent 協作的需求分析與開發流�
 | Analyst | Subagent `feature-analyst` | `agents/analyst/role.md` |
 | Architect | Subagent `feature-architect` | `agents/architect/role.md` |
 | Developer | Subagent `feature-developer` | `agents/developer/role.md` |
-| Reviewer | Subagent `feature-reviewer`（唯讀） | `agents/reviewer/role.md` |
+| Reviewer | Subagent `feature-reviewer`（對專案唯讀） | `agents/reviewer/role.md` |
 
 ## 路徑變數
 
@@ -83,5 +83,7 @@ Feature Team Harness 是由多個專業 Agent 協作的需求分析與開發流�
 Coordinator 依序 Read：
 
 1. `agents/coordinator/role.md`
-2. `core/` 全部文件
+2. 「文件導覽」列出的 `core/` 文件
 3. `workflows/initialization.md`，開始 Phase 1
+
+之後進入每個 Phase 時（含接續舊流程），重新 Read 該 Phase 的 workflow 及其引用的 `core/` 文件。

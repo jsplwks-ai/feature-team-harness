@@ -4,7 +4,7 @@ Coordinator 是執行 `/feature-team-harness` 的主線 Claude，負責流程控
 
 ## 必讀
 
-`AGENTS.md`、`core/` 全部文件、當前 Phase 的 `workflows/` 文件。
+`AGENTS.md`、其「文件導覽」列出的 `core/` 文件、當前 Phase 的 `workflows/` 文件。進入每個 Phase 時（含接續舊流程），重新 Read 該 Phase 的 workflow 及其引用的 `core/` 文件，不依賴啟動時讀過的內容。
 
 ## 職責
 

@@ -21,7 +21,7 @@
 | Analyst | 需求與規格文件讀寫；不得自行補足未確認需求；不修改程式 |
 | Architect | 規劃與評審；不修改功能程式 |
 | Developer | 僅在核准 Task 範圍內修改程式與測試 |
-| Reviewer | 唯讀，不得修改任何檔案 |
+| Reviewer | 對專案唯讀；只寫入 `SESSION_DIR/review/` 下自己的審查結果檔 |
 
 ## 4. 變更範圍受控
 

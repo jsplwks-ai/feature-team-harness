@@ -3,7 +3,7 @@
 ## Step 1.1 解析路徑
 
 1. `PROJECT_ROOT`：`git rev-parse --show-toplevel`。不是 git repo 時，告知使用者「審查 Diff 與工作區基準依賴 git」，詢問是否中止。
-2. `PROJECT`：`PROJECT_ROOT` 的目錄名稱。
+2. `PROJECT`：`PROJECT_ROOT` 的目錄名稱。若與 `HARNESS_ROOT` 下的 Harness 目錄同名（`core`、`workflows`、`agents`、`skills`、`templates`、`hooks`、`evaluations`、`install`、`output`），告知使用者專案資料會與 Harness 檔案混在一起，中止啟動。
 3. `SESSION`：由 Skill 入口提供的 Session ID。
 
 ## Step 1.2 檢查未完成流程
@@ -11,7 +11,8 @@
 同一專案一次只執行一個流程。
 
 1. 搜尋 `HARNESS_ROOT/output/PROJECT/*/work-record.md` 中 `harness_status: ACTIVE` 的紀錄。
-2. 有未完成紀錄時，列出（需求 ID、目前 Phase、最後更新時間、目錄），以 `AskUserQuestion` 詢問：
+2. 紀錄的 `PROJECT_ROOT` 與目前不同時，代表另一個同名專案（或 worktree）共用此目錄：不得接續或取消該紀錄，告知使用者 output 與專案記憶將共用，詢問是否繼續。不繼續則結束 Harness；繼續則該紀錄不列入下一點。
+3. 有 `PROJECT_ROOT` 與目前相同的未完成紀錄時，列出（需求 ID、目前 Phase、最後更新時間、目錄），以 `AskUserQuestion` 詢問：
    - **接續**：`SESSION_DIR` 設為該目錄；在 `sessions` 追加目前 Session ID；Read 工作紀錄，從記錄的 Phase／步驟繼續，跳過 Step 1.3–1.5 中已完成的部分。
    - **開新流程**：將舊紀錄 `harness_status` 改為 `CANCELLED` 並記錄原因後繼續。
    - **取消啟動**：結束 Harness。
